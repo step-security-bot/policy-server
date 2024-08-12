@@ -7,6 +7,9 @@ on:
         description: "Image digest"
         value: ${{ jobs.build.outputs.digest }}
 
+permissions:
+  contents: read
+
 jobs:
   cross-build:
     name: Cross compile policy-server binary
@@ -19,6 +22,11 @@ jobs:
           - x86_64
 
     steps:
+      - name: Harden Runner
+        uses: step-security/harden-runner@5c7944e73c4c2a096b17a9cb74d65b6c2bbafbde # v2.9.1
+        with:
+          egress-policy: audit
+
       - name: Checkout code
         uses: actions/checkout@692973e3d937129bcbf40652eb9f2f61becf3332 # v4.1.7
 
@@ -55,6 +63,11 @@ jobs:
       artifact: ${{ steps.setoutput.outputs.artifact }}
       digest: ${{ steps.setoutput.outputs.digest }}
     steps:
+      - name: Harden Runner
+        uses: step-security/harden-runner@5c7944e73c4c2a096b17a9cb74d65b6c2bbafbde # v2.9.1
+        with:
+          egress-policy: audit
+
       - name: Checkout code
         uses: actions/checkout@692973e3d937129bcbf40652eb9f2f61becf3332 # v4.1.7
       - name: Set up QEMU

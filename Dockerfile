@@ -1,4 +1,4 @@
-FROM rust:1.78 AS build
+FROM rust:1.78@sha256:5907e96b0293eb53bcc8f09b4883d71449808af289862950ede9a0e3cca44ff5 AS build
 WORKDIR /usr/src
 
 # Download the target for static linking.
